@@ -1,0 +1,12 @@
+{% extends "teamspace/base.html" %}
+{% block content %}
+<h1>Tasks</h1>
+{% include "teamspace/_usage.html" %}
+<div class="card"><form method="post" action="{% url 'task_add' %}" class="row">{% csrf_token %}
+<input name="title" placeholder="New task" maxlength="140" required style="flex:1"><button>Add</button></form></div>
+<div class="card"><table>
+{% for t in tasks %}<tr><td class="{% if t.done %}done{% endif %}">{{ t.title }}<br><span class="help">{{ t.created_by|default:"deleted user" }}</span></td>
+<td style="width:1%;white-space:nowrap"><form method="post" action="{% url 'task_toggle' t.pk %}" style="display:inline">{% csrf_token %}<button class="g">{% if t.done %}Reopen{% else %}Done{% endif %}</button></form>
+<form method="post" action="{% url 'task_delete' t.pk %}" style="display:inline">{% csrf_token %}<button class="d">Delete</button></form></td></tr>
+{% empty %}<tr><td class="help">No tasks yet.</td></tr>{% endfor %}</table></div>
+{% endblock %}

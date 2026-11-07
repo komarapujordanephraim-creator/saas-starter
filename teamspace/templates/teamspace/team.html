@@ -1,0 +1,14 @@
+{% extends "teamspace/base.html" %}
+{% block content %}
+<h1>Team</h1>
+{% include "teamspace/_usage.html" %}
+<div class="card"><h2>Members</h2><table>
+{% for m in members %}<tr><td>{{ m.user.get_username }}<br><span class="help">{{ m.user.email }}</span></td><td><span class="tag">{{ m.get_role_display }}</span></td>
+<td style="width:1%">{% if request.membership.is_owner and not m.is_owner %}<form method="post" action="{% url 'member_remove' m.pk %}">{% csrf_token %}<button class="d">Remove</button></form>{% endif %}</td></tr>{% endfor %}</table></div>
+{% if request.membership.is_owner %}
+<div class="card"><h2>Invite someone</h2><form method="post" action="{% url 'invite_create' %}" class="row">{% csrf_token %}
+<input type="email" name="email" placeholder="name@example.com" required style="flex:1"><button>Send invite</button></form>
+<p class="help">Emails print to the server console in development. The invite link is also shown after you send.</p>
+{% for i in invites %}<p style="margin:6px 0">Pending: {{ i.email }}</p>{% endfor %}</div>
+{% else %}<p class="help">Only the workspace owner can invite or remove members.</p>{% endif %}
+{% endblock %}

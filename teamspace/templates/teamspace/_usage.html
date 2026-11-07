@@ -1,0 +1,4 @@
+<div class="grid">
+<div class="card"><h2>Members</h2><p style="margin:0 0 6px">{{ usage.members }}{% if usage.pending %} + {{ usage.pending }} invited{% endif %} of {{ usage.max_members|default:"unlimited" }}</p></div>
+<div class="card"><h2>Tasks</h2><p style="margin:0 0 6px">{{ usage.tasks }} of {{ usage.max_tasks|default:"unlimited" }}</p></div>
+</div>

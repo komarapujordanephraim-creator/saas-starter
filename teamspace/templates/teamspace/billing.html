@@ -1,0 +1,11 @@
+{% extends "teamspace/base.html" %}
+{% block content %}
+<h1>Billing</h1>
+<div class="msg">Simulated billing: this starter has no payment provider. Plan changes are saved and limits are enforced, but no money is charged. See the README for how to connect Stripe.</div>
+<div class="grid">
+{% for key, p in plans.items %}<div class="card"><h2>{{ p.label }}</h2><p style="font-size:24px;margin:0">${{ p.price }}<span class="help"> / month</span></p>
+<p class="help">{{ p.max_members }} members<br>{{ p.max_tasks|default:"Unlimited" }} tasks</p>
+{% if usage.plan == p.label %}<span class="tag">Current plan</span>
+{% else %}<form method="post">{% csrf_token %}<input type="hidden" name="plan" value="{{ key }}"><button>Switch to {{ p.label }}</button></form>{% endif %}</div>{% endfor %}
+</div>
+{% endblock %}

@@ -1,0 +1,6 @@
+{% extends "teamspace/base.html" %}
+{% block content %}
+<div class="card" style="max-width:480px;margin:30px auto"><h1>Join {{ invite.workspace.name }}</h1>
+{% if wrong_email %}<p class="msg error">This invite was sent to a different email address than your account's.</p>
+{% else %}<form method="post">{% csrf_token %}<button>Accept invite</button></form>{% endif %}</div>
+{% endblock %}
