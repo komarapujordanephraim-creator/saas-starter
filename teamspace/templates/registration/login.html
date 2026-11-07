@@ -1,0 +1,10 @@
+{% extends "teamspace/base.html" %}
+{% block content %}
+<div class="card" style="max-width:380px;margin:40px auto"><h1>Log in</h1>
+<form method="post">{% csrf_token %}<input type="hidden" name="next" value="{{ next }}">
+{% if form.errors %}<p class="msg error">Wrong username or password.</p>{% endif %}
+<label for="id_username">Username</label>{{ form.username }}
+<label for="id_password">Password</label>{{ form.password }}
+<p><button>Log in</button></p></form>
+<p class="help">New here? <a href="{% url 'signup' %}{% if next %}?next={{ next|urlencode }}{% endif %}">Create a workspace</a></p></div>
+{% endblock %}

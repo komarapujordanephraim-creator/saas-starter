@@ -1,0 +1,8 @@
+{% extends "teamspace/base.html" %}
+{% block content %}
+<div class="card" style="max-width:420px;margin:40px auto"><h1>Create your workspace</h1>
+<form method="post" novalidate>{% csrf_token %}
+{% for f in form %}<label for="{{ f.id_for_label }}">{{ f.label }}</label>{{ f }}{% for e in f.errors %}<div class="help" style="color:#c0362c">{{ e }}</div>{% endfor %}{% endfor %}
+<p><button>Sign up</button></p></form>
+<p class="help">Already have an account? <a href="{% url 'login' %}">Log in</a></p></div>
+{% endblock %}
